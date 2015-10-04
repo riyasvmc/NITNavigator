@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout_container"
+    android:layout_width="match_parent"
+    android:minHeight="?android:listPreferredItemHeight"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Header view -->
+    <nitnavigator.zeefive.com.view.TextView_roboto_bold
+        android:id="@+id/textView_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey_60"
+        android:textSize="14sp"
+        android:textAllCaps="true"
+        android:text="Category"
+        android:paddingLeft="24dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="6dp" />
+
+    <!-- listitem view -->
+    <LinearLayout
+        android:id="@+id/linearLayout_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="10dp"
+        android:background="?android:selectableItemBackground">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="0.2">
+            <LinearLayout
+                android:id="@+id/linearLayout_tag"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center">
+
+                <nitnavigator.zeefive.com.view.TextView_roboto_regular
+                    android:id="@+id/tag"
+                    android:layout_width="wrap_content"
+                    android:text="00"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout_subcontainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="0.8"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp">
+            <nitnavigator.zeefive.com.view.TextView_roboto_regular
+                android:id="@+id/title"
+                android:text="Title"
+                android:textSize="@dimen/list_title"
+                android:textColor="@android:color/primary_text_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/textView_sub_2"
+                android:layout_width="wrap_content"
+                android:text="Day"
+                android:textSize="@dimen/list_sub_title"
+                android:textColor="@android:color/tertiary_text_light"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

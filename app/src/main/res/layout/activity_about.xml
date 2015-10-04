@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:padding="10dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="158dp"
+            android:layout_height="158dp"
+            android:src="@drawable/logo"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/app_name"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:padding="4dp"
+            android:text="Version 2.0"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:padding="10dp"
+            android:text="This App is designed to bring essential institutional informations to students"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/button_rate"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="RATE ON GOOGLE PLAY"
+        android:onClick="onClick"
+        android:padding="14dp"
+        android:layout_gravity="center"/>
+</LinearLayout>

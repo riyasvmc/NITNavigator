@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:greendog="http://schemas.android.com/apk/res-auto">
+
+    <item xmlns:greendog="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/action_gototoday"
+        android:icon="@drawable/ic_today_white_24dp"
+        android:title="Search"
+        greendog:showAsAction="always|withText|collapseActionView" />
+
+</menu>

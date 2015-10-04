@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="nitnavigator.zeefive.com.main" >
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="nitnavigator.zeefive.com.activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="nitnavigator.zeefive.com.activities.ActivityDemo"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" />
+        <activity
+            android:name="nitnavigator.zeefive.com.activities.ActivitySplash"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" />
+        <activity
+            android:name="nitnavigator.zeefive.com.activities.ActivitySettings"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"
+            android:parentActivityName="nitnavigator.zeefive.com.activities.MainActivity" />
+        <activity
+            android:name="nitnavigator.zeefive.com.activities.ActivityContactsDetail"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" />
+        <activity
+            android:name="nitnavigator.zeefive.com.activities.ActivityCalendarDetail"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" />
+        <activity
+            android:name="nitnavigator.zeefive.com.activities.ActivityDepartmentDetail"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" />
+        <activity
+            android:name="nitnavigator.zeefive.com.activities.ActivityFeedback"
+            android:screenOrientation="portrait"
+            android:label="@string/action_feedback" />
+        <activity
+            android:name="nitnavigator.zeefive.com.activities.ActivityAbout"
+            android:screenOrientation="portrait"
+            android:label="@string/action_about" />
+        <provider
+            android:name="nitnavigator.zeefive.com.contentproviders.ContentDataProvider"
+            android:authorities="com.zeefive.nitnavigator.contentproviders"
+            android:exported="true"
+            android:readPermission="true"
+            android:writePermission="true" />
+    </application>
+
+</manifest>

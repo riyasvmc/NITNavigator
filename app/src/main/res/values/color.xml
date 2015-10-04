@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blue">#ff4e79d7</color>
+    <color name="blue_light">#ff128837</color>
+    <color name="white">#ffffff</color>
+    <color name="red">#ffff0000</color>
+    <color name="red_app">#ffff1107</color>
+    <color name="skyblue">#ffd45321</color>
+    <color name="yellow">#f09300</color>
+    <color name="black">#000000</color>
+    <color name="grey_80">#cc000000</color>
+    <color name="grey_60">#99000000</color>
+    <color name="grey_40">#66000000</color>
+    <color name="grey_10">#66000000</color>
+
+    <color name="color_primary">#ff3976e7</color>
+    <color name="color_accent">#ff4667e4</color>
+    <color name="color_primary_dark">#ff000000</color>
+    <color name="color_primary_light">#ff2e7688</color>
+    <color name="color_control_highlight">#ff5da399</color>
+
+    <!-- color of elements-->
+    <color name="color_button_round">#ffff254a</color>
+    <color name="color_button_round_grey">#ff545454</color>
+    <color name="color_tablayout">#ffaeaeae</color>
+    <color name="cal_todaymark">#ff21a2eb</color>
+
+    <!-- Tag colors -->
+    <color name="colorA">#ffff5b34</color>
+    <color name="color2">#ffff3760</color>
+    <color name="colorC">#ffff2bb9</color>
+    <color name="color4">#ff098012</color>
+    <color name="color5">#ff5880ff</color>
+    <color name="color6">#ffff720f</color>
+    <color name="color7">#ff788e28</color>
+    <color name="color8">#ff40bd7a</color>
+    <color name="color9">#ffb65172</color>
+    <color name="color10">#ff5068c5</color>
+    <color name="color11">#ff1a1b3c</color>
+    <color name="color12">#ff4cb366</color>
+    <color name="color13">#ff763156</color>
+    <color name="color14">#ff8d8213</color>
+    <color name="color15">#ffdc922a</color>
+    <color name="color16">#ff5a8d33</color>
+    <color name="color17">#ff345034</color>
+    <color name="color18">#ff80760f</color>
+    <color name="color19">#ffb52f77</color>
+    <color name="color20">#ff670e50</color>
+    <color name="color21">#ff1147d7</color>
+    <color name="color22">#ff3a2f67</color>
+    <color name="color23">#ff48342d</color>
+    <color name="color24">#ff3c97bb</color>
+    <color name="color25">#ff138dc7</color>
+    <color name="color26">#ff184c2b</color>
+
+</resources>

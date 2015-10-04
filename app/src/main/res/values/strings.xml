@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Nitc Origami</string>
+    <string name="action_about">About</string>
+    <string name="action_senddata">I have data</string>
+    <string name="action_feedback">Feedback</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <ImageView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="40dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KFC (the name was originally an initialism for Kentucky Fried Chicken) is a fast food restaurant chain that specializes in fried chicken and is headquartered in Louisville, Kentucky, in the United States."
+        android:textSize="20sp"
+        android:padding="20dp"/>
+
+
+</LinearLayout>
