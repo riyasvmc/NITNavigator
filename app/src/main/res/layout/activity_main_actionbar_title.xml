@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+    <nitnavigator.zeefive.com.view.TextView_roboto_bold
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="O R I G A M I  "
+        android:textColor="#303030"
+        android:id="@+id/mytext"
+        android:textSize="17dp" />
+    <nitnavigator.zeefive.com.view.TypeWriter
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="N E W S"
+        android:textColor="#939393"
+        android:id="@+id/sub"
+        android:textSize="16dp" />
+</LinearLayout>

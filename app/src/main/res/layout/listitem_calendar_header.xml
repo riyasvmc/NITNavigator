@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <nitnavigator.zeefive.com.view.TextView_roboto_regular
-                android:id="@+id/sub"
+                android:id="@+id/sub_title_2"
                 android:text="Description"
                 android:visibility="visible"
                 android:textSize="@dimen/list_sub_title"

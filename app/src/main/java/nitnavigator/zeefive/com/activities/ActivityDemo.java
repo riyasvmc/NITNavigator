@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import nitnavigator.zeefive.com.adapter.DemoPagerAdapter;
 import nitnavigator.zeefive.com.data.Data;
 import nitnavigator.zeefive.com.main.R;
-import nitnavigator.zeefive.com.utilities.Utilities;
+import nitnavigator.zeefive.com.utility.Utilities;
 
 
 public class ActivityDemo extends AppCompatActivity {

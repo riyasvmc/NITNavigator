@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="blue">#ff4e79d7</color>
+    <color name="blue">#006dd2</color>
     <color name="blue_light">#ff128837</color>
     <color name="white">#ffffff</color>
     <color name="red">#ffff0000</color>
@@ -13,9 +13,10 @@
     <color name="grey_40">#66000000</color>
     <color name="grey_10">#66000000</color>
 
-    <color name="color_primary">#ff3976e7</color>
-    <color name="color_accent">#ff4667e4</color>
-    <color name="color_primary_dark">#ff000000</color>
+    <color name="color_primary">#f9f9f9</color>
+    <color name="color_accent">#e9062c</color>
+    <color name="color_accent_dark">#c90425</color>
+    <color name="color_primary_dark">#000000</color>
     <color name="color_primary_light">#ff2e7688</color>
     <color name="color_control_highlight">#ff5da399</color>
 

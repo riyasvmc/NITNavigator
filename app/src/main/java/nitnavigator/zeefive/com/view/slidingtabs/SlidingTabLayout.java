@@ -259,9 +259,9 @@ public class SlidingTabLayout extends HorizontalScrollView {
         public void onPageSelected(int position) {
             // code for hiding corner button when pager reach home
             if(position == 0){
-                MainActivity.fab.setVisibility(View.GONE);
+                MainActivity.mFab.setVisibility(View.GONE);
             }else{
-                MainActivity.fab.setVisibility(View.VISIBLE);
+                MainActivity.mFab.setVisibility(View.VISIBLE);
             }
 
             if (mScrollState == ViewPager.SCROLL_STATE_IDLE) {

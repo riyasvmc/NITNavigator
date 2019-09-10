@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import nitnavigator.zeefive.com.main.R;
-import nitnavigator.zeefive.com.utilities.Utilities;
+import nitnavigator.zeefive.com.utility.Utilities;
 
 public class ActivitySplash extends ActivityCustom {
 
@@ -20,10 +20,10 @@ public class ActivitySplash extends ActivityCustom {
         Thread thread = new Thread(){
             public void run(){
                 try{
-                    Thread.sleep(700);
+                    Thread.sleep(1000);
 
                     // Check it is first run or not.
-                    if(Utilities.showDemo(activity)) {
+                    if(false) {
                         Intent intent = new Intent(getBaseContext(), ActivityDemo.class);
                         startActivity(intent);
                     }else{

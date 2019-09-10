@@ -4,58 +4,35 @@ android:id="@+id/linearLayout_content"
 xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
-android:orientation="horizontal"
-android:weightSum="1"
+android:orientation="vertical"
 android:gravity="center_vertical"
-android:padding="10dp"
 android:background="?android:selectableItemBackground">
 
-<LinearLayout
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_weight="0.2">
     <LinearLayout
-        android:id="@+id/linearLayout_tag"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:orientation="vertical"
-        android:background="@drawable/bg_roundbutton_news"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center">
-        <nitnavigator.zeefive.com.view.TextView_roboto_regular
-            android:id="@+id/tag"
-            android:layout_width="wrap_content"
-            android:text="00"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-    </LinearLayout>
-</LinearLayout>
-<LinearLayout
     android:id="@+id/linearLayout_subcontainer"
-    android:layout_width="0dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_weight="0.8"
     android:gravity="center_vertical"
-    android:layout_marginLeft="10dp">
-    <nitnavigator.zeefive.com.view.TextView_roboto_regular
-        android:id="@+id/title"
-        android:text="Title"
-        android:textSize="@dimen/list_title"
-        android:textColor="@android:color/primary_text_light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <nitnavigator.zeefive.com.view.TextView_roboto_regular
-        android:id="@+id/sub"
-        android:layout_width="wrap_content"
-        android:text="Day"
-        android:textSize="@dimen/list_sub_title"
-        android:textColor="@android:color/tertiary_text_light"
-        android:layout_height="wrap_content"/>
+        android:padding="10dp">
+        <nitnavigator.zeefive.com.view.TextView_roboto_regular
+            android:id="@+id/news_title"
+            android:text="Title"
+            android:textSize="@dimen/list_title"
+            android:textColor="@android:color/primary_text_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <nitnavigator.zeefive.com.view.TextView_roboto_regular
+            android:id="@+id/sub_title"
+            android:layout_width="wrap_content"
+            android:text="Day"
+            android:textSize="@dimen/list_sub_title"
+            android:textColor="@android:color/tertiary_text_light"
+            android:layout_height="wrap_content"/>
 
-</LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dfdfdf"/>
 </LinearLayout>

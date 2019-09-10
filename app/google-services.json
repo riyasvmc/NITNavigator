@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_id": "nitc-origami-74b15",
+    "project_number": "412433014887",
+    "name": "Nitc Origami"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412433014887:android:13f73adc3ac6710d",
+        "client_id": "android:nitnavigator.zeefive.com.main",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "nitnavigator.zeefive.com.main"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412433014887:android:c23cca71e0ea3cd4",
+        "client_id": "android:nitnavigator.zeefive.com.nitnavigator",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "nitnavigator.zeefive.com.nitnavigator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

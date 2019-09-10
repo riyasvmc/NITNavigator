@@ -1,40 +1,76 @@
 package nitnavigator.zeefive.com.fragments;
 
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.DataSetObserver;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import nitnavigator.zeefive.com.adapter.ContactsAdapter;
-import nitnavigator.zeefive.com.contentproviders.ContentDataProvider;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NoConnectionError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import hugo.weaving.DebugLog;
+import nitnavigator.zeefive.com.SyncHandler;
+import nitnavigator.zeefive.com.adapter.RecyclerAdapterContacts;
+import nitnavigator.zeefive.com.data.DBHelper;
 import nitnavigator.zeefive.com.data.Data;
-import nitnavigator.zeefive.com.data.TableContacts;
+import nitnavigator.zeefive.com.data.MyContentProvider;
 import nitnavigator.zeefive.com.main.R;
-import nitnavigator.zeefive.com.utilities.Utilities;
+import nitnavigator.zeefive.com.model.Contact;
+import nitnavigator.zeefive.com.utility.Utilities;
+import nitnavigator.zeefive.com.utility.VolleySingleton;
+import nitnavigator.zeefive.com.view.RecyclerViewWithEmptyView;
 
 public class FragmentContacts extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
-    private SimpleCursorAdapter mAdapter;
+    //constants
+    public static final String TITLE = "Contacts";
+    public static final String REQUEST_TAG = "tag";
+    private RecyclerAdapterContacts mAdapter;
     private CursorLoader cursorLoader;
+    private ArrayList<Contact> mList;
     public static String mQuery = "";
-    private ListView listView;
+    private RecyclerViewWithEmptyView mRecyclerView;
+    private JsonObjectRequest mJsonObjectRequest;
+    private RequestQueue mQueue;
+    // views
+    private TextView mTextView_EmptyView;
+    private LinearLayout mLinearLayout_EmptyView;
+    private Button mButton_Sync;
+    private static ProgressDialog mProgressDialog;
 
     @Nullable
     @Override
@@ -42,32 +78,85 @@ public class FragmentContacts extends Fragment implements LoaderManager.LoaderCa
         super.onCreateView(inflater,container,savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
         setHasOptionsMenu(true);
-        getActivity().getSupportLoaderManager().initLoader(Data.LOADER_CONTACTS, null,this);
+
+        mRecyclerView = (RecyclerViewWithEmptyView) view.findViewById(R.id.recyclerView_contacts);
+        //mRecyclerView.setEmptyView(view.findViewById(R.id.empty_view));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mList = new ArrayList<>();
+        mAdapter = new RecyclerAdapterContacts(getContext(), mList);
+        mRecyclerView.setAdapter(mAdapter);
+
+        mLinearLayout_EmptyView = (LinearLayout) view.findViewById(R.id.linearLayout_emptyView);
+        mButton_Sync = (Button) view.findViewById(R.id.button_sync);
+        mButton_Sync.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mProgressDialog = ProgressDialog.show(getActivity(), null, "Downloading...");
+                syncContacts();
+            }
+        });
+        mTextView_EmptyView = (TextView) view.findViewById(R.id.textView);
+
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        displayListView();
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        //Log.d(MainActivity.TAG, "FragmentContacts: onResume");
-        //Starts a new or restarts an existing Loader in this manager
-
         getActivity().getSupportLoaderManager().initLoader(Data.LOADER_CONTACTS, null, this);
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().getSupportLoaderManager().restartLoader(Data.LOADER_CONTACTS, null, this);
+
+        // sync Contacts
+        syncContacts();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mQueue != null){
+            mQueue.cancelAll(REQUEST_TAG);
+        }
+    }
+
+    @DebugLog
+    public void syncContacts(){
+
+        // Todo show progress bar here.
+        if(mQueue != null){
+            mQueue.cancelAll(REQUEST_TAG);
+        }
+        mQueue = VolleySingleton.getInstance(getActivity()).getRequestQueue();
+        mJsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Data.URL_API_SYNC_CONTACTS, new JSONObject(),
+                new Response.Listener<JSONObject>() {
+                    @DebugLog
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        dismissDialog();
+                        SyncHandler.Contacts.processContacts(getActivity(), response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @DebugLog
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        dismissDialog();
+                        if(error instanceof NoConnectionError) {
+                            Toast.makeText(getActivity(), "No Internet", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        mJsonObjectRequest.setTag(REQUEST_TAG);
+        mJsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(10*1000, 3, 1.2f));
+        mQueue.add(mJsonObjectRequest);
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
-        //Log.d(MainActivity.TAG, "FragmentContacts: onCreateOptionMenu");
-
         super.onCreateOptionsMenu(menu, inflater);
         // Inflate the menu; this adds items to the action bar if it is present.
         getActivity().getMenuInflater().inflate(R.menu.menu_contact, menu);
@@ -76,11 +165,16 @@ public class FragmentContacts extends Fragment implements LoaderManager.LoaderCa
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         if(searchView != null){
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+            searchView.setSearchableInfo(searchManager
+                    .getSearchableInfo(getActivity().getComponentName()));
 
-            //TextView textView = (TextView) searchView.findViewById(searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null));
-            //textView = UtilityClass.setStyleToTextView(getBaseContext(), textView);
-
+            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH){
+                if (!TextUtils.isEmpty(mQuery)) {
+                    searchItem.expandActionView();
+                    searchView.setQuery(mQuery, true);
+                    searchView.clearFocus();
+                }
+            }
         }
 
         SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
@@ -110,67 +204,73 @@ public class FragmentContacts extends Fragment implements LoaderManager.LoaderCa
 
     private void restartLoader(){
         getActivity().getSupportLoaderManager().restartLoader(Data.LOADER_CONTACTS, null, this);
-    }
-
-    private void displayListView() {
-
-        //Log.d(MainActivity.TAG, "FragmentContacts: displayListView");
-
-        // The desired columns to be bound
-        String[] columns = new String[] {TableContacts.PHONE, TableContacts.NAME, TableContacts.DEPARTMENT};
-        //int[] to = new int[] {R.id.textview_phone, R.id.textview_name, R.id.textview_category};
-        mAdapter = new ContactsAdapter(getActivity(), R.layout.listitem_contacts_header, null, columns, null, 0);
-        mAdapter.registerDataSetObserver(new DataSetObserver() {
-            @Override
-            public void onChanged() {
-                super.onChanged();
-                listView.setSelection(0);
-            }
-        });
-
-        listView = (ListView) getActivity().findViewById(R.id.listView_contacts);
-        listView.setAdapter(mAdapter);
-        listView.setDividerHeight(0);
-
+        mRecyclerView.scrollToPosition(0);
     }
 
     // This is called when a new Loader needs to be created.
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String select = TableContacts.NAME + " like \'%" + mQuery + "%\' or " + TableContacts.DEPARTMENT + " like \'%" + mQuery + "%\'";
-        String[] selectionArgs = new String[]{mQuery};
-        String order = TableContacts.DEPARTMENT;
-        String[] projection = {TableContacts.ID, TableContacts.PHONE, TableContacts.NAME, TableContacts.DEPARTMENT,TableContacts.MOBILE, TableContacts.EMAIL};
+        String selection =
+                DBHelper.ContactsTable.TITLE + " like ? or " +
+                DBHelper.ContactsTable.TITLE + " like ? or " +
+                        DBHelper.ContactsTable.CATEGORY + " like ? or " +
+                        DBHelper.ContactsTable.CATEGORY + " like ?";
+        String[] selectionArgs = new String[] {
+                mQuery + "%",
+                "% " + mQuery + "%",
+                mQuery + "%",
+                "% " + mQuery + "%"
+        };
 
-        if(mQuery != null || mQuery !=""){
-
-            cursorLoader = new CursorLoader(getActivity(), ContentDataProvider.CONTENT_URI_CONTACTS, projection, select, null, order);
-            return cursorLoader;
-        }else if(mQuery == null){
-            cursorLoader = new CursorLoader(getActivity(), ContentDataProvider.CONTENT_URI_CONTACTS, projection, null, null, order);
-            return cursorLoader;
-        }
-        return null;
+        String order = DBHelper.ContactsTable.TITLE;
+        CursorLoader cursorLoader = new CursorLoader(getContext(), MyContentProvider.CONTENT_URI_CONTACTS, null, selection, selectionArgs, order);
+        return cursorLoader;
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
+        // check for empty counter and toggle visibility of recyclerview
+        if(c.getCount() == 0){
+            mLinearLayout_EmptyView.setVisibility(View.VISIBLE);
+            if(mQuery.equals("")) {
+                mButton_Sync.setVisibility(View.VISIBLE);
+                mTextView_EmptyView.setText("No Data Found!");
+            }else{
+                mButton_Sync.setVisibility(View.GONE);
+                mTextView_EmptyView.setText("No Results Matching Your Search \"" + mQuery + "\"");
+            }
+            mRecyclerView.setVisibility(View.GONE);
+        }else{
+            mLinearLayout_EmptyView.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
 
-        //Log.d(MainActivity.TAG, "FragmentContacts: onLoadFinished");
+        int i_id = c.getColumnIndexOrThrow(DBHelper.ContactsTable._ID);
+        int i_title = c.getColumnIndexOrThrow(DBHelper.ContactsTable.TITLE);
+        int i_category = c.getColumnIndexOrThrow(DBHelper.ContactsTable.CATEGORY);
+        int i_phone = c.getColumnIndexOrThrow(DBHelper.ContactsTable.PHONE);
+        int i_mobile = c.getColumnIndexOrThrow(DBHelper.ContactsTable.MOBILE);
+        int i_created_at = c.getColumnIndexOrThrow(DBHelper.ContactsTable.CREATED_AT);
 
-        // Swap the new cursor in.  (The framework will take care of closing the
-        // old cursor once we return.)
-        mAdapter.swapCursor(data);
+        mList.clear();
+        while(c.moveToNext()){
+            // make item object
+            Contact item = new Contact(c.getString(i_id), c.getString(i_title), c.getString(i_category), c.getString(i_phone), c.getString(i_mobile), c.getString(i_created_at));
+            // adding item to array list
+            mList.add(item);
+        }
+
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
-        //Log.d(MainActivity.TAG, "FragmentContacts: onLoaderReset");
+    }
 
-        // This is called when the last Cursor provided to onLoadFinished()
-        // above is about to be closed.  We need to make sure we are no
-        // longer using it.
-        mAdapter.swapCursor(null);
+    public static void dismissDialog(){
+        if(mProgressDialog != null){
+            mProgressDialog.dismiss();
+        }
     }
 }

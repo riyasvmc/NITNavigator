@@ -16,11 +16,11 @@ public class RecyclerItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public static RecyclerItemViewHolder newInstance(View parent) {
-        TextView itemTextView = (TextView) parent.findViewById(R.id.itemTextView);
+        TextView itemTextView = (TextView) parent.findViewById(R.id.title);
         return new RecyclerItemViewHolder(parent, itemTextView);
     }
 
-    public void setItemText(CharSequence text) {
+    public void setup(CharSequence text) {
         mItemTextView.setText(text);
     }
 

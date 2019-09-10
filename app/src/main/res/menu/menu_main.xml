@@ -7,11 +7,6 @@
         android:orderInCategory="101"
         app:showAsAction="never" />
 
-    <item android:id="@+id/action_Support"
-        android:title="@string/action_senddata"
-        android:orderInCategory="102"
-        app:showAsAction="never" />
-
     <item android:id="@+id/action_about"
         android:title="@string/action_about"
         android:orderInCategory="103"

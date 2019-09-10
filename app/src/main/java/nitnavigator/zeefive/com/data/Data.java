@@ -1,53 +1,28 @@
 package nitnavigator.zeefive.com.data;
 
-
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
-import java.util.ArrayList;
-
-import nitnavigator.zeefive.com.fragments.FragmentCalendar;
 import nitnavigator.zeefive.com.fragments.FragmentContacts;
-import nitnavigator.zeefive.com.fragments.FragmentDept;
-import nitnavigator.zeefive.com.fragments.FragmentHome;
 import nitnavigator.zeefive.com.fragments.FragmentNews;
-import nitnavigator.zeefive.com.fragments.PartThreeFragment;
 import nitnavigator.zeefive.com.main.R;
-import nitnavigator.zeefive.com.utilities.ItemFragment;
 
 public class Data {
 
     public static final int LOADER_CONTACTS = 1;
     public static final int LOADER_NEWS = 2;
     public static final int LOADER_CALENDAR = 3;
-    public static final int LOADER_DEPT = 4;
-    public static final int LOADER_RECYCLER = 5;
-
-    // Database Path
-    public static String PACKAGE_NAME = "nitnavigator.zeefive.com.nitnavigator";
-    public static final String DB_PATH = "/data/data/"+ PACKAGE_NAME + "/databases/";
-    public static final String DATABASE_NAME = "nitc_data.db";
 
     public static String noInternet = "No Internet";
-    public static final String NEWS_URL = "http://www.api.zeefive.com/origami/v1/news";
+    public static final String URL_API_REGISTER_USER = "http://www.api.zeefive.com/origami/v1/user"; // POST
+    public static final String URL_API_SYNC_NEWS = "http://www.api.zeefive.com/origami/v1/syncNews";
+    public static final String URL_API_SYNC_CONTACTS = "http://www.api.zeefive.com/origami/v1/syncContacts"; // GET
+    public static final String URL_API_SYNC_CALENDAR = "http://www.api.zeefive.com/origami/v1/syncCalendar"; // POST
 
     // Resource IDs
     // Activity Demo
     public static final int[] id_drawable_viewpager_indicator = {R.drawable.indicator_viewpager_1, R.drawable.indicator_viewpager_2,
             R.drawable.indicator_viewpager_3};
-
-    //public static final String[] HOME_MENU = {"Home","News", "Contacts", "Calendar", "Map", "Clubs"};
-    public static final String[] HOME_MENU = {"News", "Contacts", "Calendar","Department"};
-    public static final String[] TABS = {"Home","News", "Contacts", "Calendar","Department", "Recycler"};
-    public static final Fragment[] PAGE_FRAGMENTS = {
-            new FragmentHome(),
-            new FragmentNews(),
-            new FragmentContacts(),
-            new FragmentCalendar(),
-            new FragmentDept(),
-            new PartThreeFragment().createInstance(20)
-    };
 
     public static String[] TagColor = new String[] {"#568d83", "#00a8ff", "#ead98b", "#9b87ae", "#d32811"
             , "#54d396", "#ce3156", "#727605", "#1d7605", "#546276", "#0a91c9", "#4d6893", "#cc8dd4", "#0f9c4b", "#210064"
@@ -85,19 +60,15 @@ public class Data {
             case "y" : return Color.parseColor(TagColor[24]); 
             case "z" : return Color.parseColor(TagColor[25]); 
         }
-
         return 0xFF000000;
     }
 
     // Typefaces
-    //public static final String TYPEFACE_TABS = "fonts/roboto/roboto_regular.ttf";
+    public static final String TYPEFACE_TABS = "fonts/roboto/roboto_regular.ttf";
     //public static final String TYPEFACE_TABS = "fonts/roboto/roboto_medium.ttf";
-    public static final String TYPEFACE_TABS = "fonts/roboto/roboto_bold.ttf";
+    //public static final String TYPEFACE_TABS = "fonts/roboto/roboto_bold.ttf";
 
+    // support email
+    public static final String support_email = "riyas.vmc@gmail.com";
 
-    // resources IDs
-    // Home icons
-    public static final int[] id_home_icons= new int[] {
-        R.drawable.ic_new, R.drawable.ic_con, R.drawable.ic_cal, R.drawable.ic_dep
-    };
 }
